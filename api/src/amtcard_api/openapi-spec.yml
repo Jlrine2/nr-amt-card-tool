@@ -72,6 +72,7 @@ components:
       required:
         - card_id
         - mundane_name
+      additionalProperties: false
 
     update_user:
       type: object
@@ -84,3 +85,4 @@ components:
           type: string
       required:
         - card_id
+      additionalProperties: false

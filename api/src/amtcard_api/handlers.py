@@ -1,6 +1,6 @@
 from os import environ
 
-from boto3.dynamodb.conditions import Key
+from connexion import problem
 
 from amtcard_api import connexion_app
 import boto3
