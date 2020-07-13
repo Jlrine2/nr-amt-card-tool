@@ -35,7 +35,7 @@ def get_user(card_id):
     response = table.get_item(
         Key=key
     )
-    return response['Items']
+    return response['Item']
 
 
 connexion_app.add_api('openapi-spec.yml', validate_responses=True, strict_validation=True)
