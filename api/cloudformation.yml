@@ -47,11 +47,6 @@ Resources:
         Credentials: !GetAtt ApiRole.Arn
         PassthroughBehavior: NEVER
 
-  ApiLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      RetentionInDays: 30
-
   Deployment:
     Type: AWS::ApiGateway::Deployment
     DependsOn:
@@ -66,9 +61,6 @@ Resources:
       StageName: api
       RestApiId: !Ref Api
       DeploymentId: !Ref Deployment
-      AccessLogSetting:
-        DestinationArn: !GetAtt ApiLogGroup.Arn
-        Format: $context.identity.sourceIp $context.identity.caller $context.identity.user [$context.requestTime] "$context.httpMethod $context.path $context.protocol" $context.status $context.responseLength $context.requestId
 
   ApiRole:
     Type: AWS::IAM::Role
@@ -89,12 +81,6 @@ Resources:
                 Action: lambda:InvokeFunction
                 Resource: !GetAtt Lambda.Arn
 
-  LambdaLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: !Sub "/aws/lambda/${Lambda}"
-      RetentionInDays: 90
-
   LambdaRole:
     Type: AWS::IAM::Role
     Properties:
@@ -110,11 +96,6 @@ Resources:
           PolicyDocument:
             Version: 2012-10-17
             Statement:
-              - Effect: Allow
-                Action:
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
               - Effect: Allow
                 Action:
                   - dynamodb:PutItem
