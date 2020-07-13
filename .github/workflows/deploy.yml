@@ -38,5 +38,4 @@ jobs:
           aws cloudformation deploy \
             --stack-name nr-amtcard-api \
             --template-file packaged.yml \
-            --role-arn ${CLOUDFORMATION_ROLE_ARN} \
             --capabilities CAPABILITY_IAM \
