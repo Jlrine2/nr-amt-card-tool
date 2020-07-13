@@ -13,6 +13,7 @@ DB = boto3.resource('dynamodb', region_name='us-west-2')
 def register_user(body):
     table = DB.Table(environ['TABLE_NAME'])
     table.put_item(Item=body)
+    return {'user_added': body}
 
 
 def update_user(body):
@@ -25,6 +26,7 @@ def update_user(body):
         UpdateExpression=update_expression,
         ExpressionAttributeValues=expression_attribute_values,
     )
+    return {'user_updated': body}
 
 
 def get_user(card_id):
@@ -33,7 +35,7 @@ def get_user(card_id):
     response = table.get_item(
         Key=key
     )
-    return response['Items']
+    return response['tems']
 
 
 connexion_app.add_api('openapi-spec.yml', validate_responses=True, strict_validation=True)
