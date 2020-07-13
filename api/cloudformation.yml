@@ -147,3 +147,4 @@ Resources:
     Properties:
       DomainName: !Ref CustomDomainName
       RestApiId: !Ref Api
+      Stage: !Ref Stage
