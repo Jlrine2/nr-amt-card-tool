@@ -29,10 +29,9 @@ def update_user(body):
 
 def get_user(card_id):
     table = DB.Table(environ['TABLE_NAME'])
-    key_expression = Key('card_id').eq(card_id)
-    response = table.query(
-        IndexName='card_id',
-        KeyConditionExpression=key_expression
+    key = {'card_id': card_id}
+    response = table.get_item(
+        Key=key
     )
     return response['Items']
 
