@@ -1,0 +1,86 @@
+openapi: 3.0.1
+
+info:
+  title: hyp3-api
+  version: 0.0.1
+
+paths:
+
+  /register_user:
+
+    post:
+      operationId: amtcard_api.handlers.register_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/register_user"
+        required: true
+      responses:
+        "200":
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+  /update_user:
+    post:
+      operationId: amtcard_api.handlers.update_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/update_user"
+        required: true
+      responses:
+        "200":
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+  /get_user:
+    get:
+      operationId: amtcard_api.handlers.get_user
+      parameters:
+        - name: card_id
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+
+
+components:
+  schemas:
+    register_user:
+      type: object
+      properties:
+        card_id:
+          type: string
+        mundane_name:
+          type: string
+        persona_name:
+          type: string
+        notes:
+          type: string
+      required:
+        - card_id
+        - mundane_name
+
+    update_user:
+      type: object
+      properties:
+        card_id:
+          type: string
+        persona_name:
+          type: string
+        notes:
+          type: string
+      required:
+        - card_id
