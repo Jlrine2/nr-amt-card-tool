@@ -35,6 +35,8 @@ def get_user(card_id):
     response = table.get_item(
         Key=key
     )
+    if "Item" not in response:
+        return problem(400, "BadRequest", "Card Id does not exist")
     return response['Item']
 
 
