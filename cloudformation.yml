@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+
+Resources:
+
+  Api:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      Parameters:
+        UsersTable: !Ref UsersTable
+      TemplateURL:
+        api/cloudformation.yml
+
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: card_id
+          AttributeType: S
+        - AttributeName: mundane_name
+          AttributeType: S
+        - AttributeName: persona_name
+          AttributeType: S
+      KeySchema:
+        - AttributeName: card_id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: mundane_name
+          KeySchema:
+            - AttributeName: mundane_name
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: persona_name
+          KeySchema:
+            - AttributeName: persona_name
+              KeyType: HASH
+          Projection:
+              ProjectionType: ALL
