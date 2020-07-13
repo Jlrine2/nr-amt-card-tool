@@ -1,6 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
 
+Parameters:
+  Domain:
+    Type: String
+    Default: api.nr-amtcard.com
 
+  CertificateArn:
+    Type: String
+    Default: arn:aws:acm:us-west-2:502679335954:certificate/cf004188-24cc-4268-9b8a-48a54b69a76b
 Resources:
 
   Api:
@@ -8,6 +15,8 @@ Resources:
     Properties:
       Parameters:
         UsersTable: !Ref UsersTable
+        Domain: !Ref Domain
+        CertificateArn: !Ref CertificateArn
       TemplateURL:
         api/cloudformation.yml
 

@@ -2,6 +2,12 @@ Parameters:
   UsersTable:
     Type: String
 
+  Domain:
+    Type: String
+
+  CertificateArn:
+    Type: String
+
 Resources:
 
   Api:
@@ -124,3 +130,20 @@ Resources:
       Role: !GetAtt LambdaRole.Arn
       Runtime: python3.8
       Timeout: 30
+
+
+  CustomDomainName:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      DomainName: !Ref Domain
+      EndpointConfiguration:
+        Types:
+        - REGIONAL
+      RegionalCertificateArn: !Ref CertificateArn
+      SecurityPolicy: TLS_1_2
+
+  BasePathMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !Ref CustomDomainName
+      RestApiId: !Ref Api
