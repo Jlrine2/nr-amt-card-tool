@@ -67,6 +67,8 @@ components:
           type: string
         persona_name:
           type: string
+        age:
+          type: integer
         notes:
           type: string
       required:
@@ -81,6 +83,8 @@ components:
           type: string
         persona_name:
           type: string
+        age:
+          type: integer
         notes:
           type: string
       required:
