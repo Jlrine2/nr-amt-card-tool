@@ -42,4 +42,4 @@ def get_user(card_id):
 
 
 connexion_app.add_api('openapi-spec.yml', validate_responses=True, strict_validation=True)
-CORS(connexion_app.app, origins=r'.*nr-amtgard.com|localhost')
+CORS(connexion_app.app)
