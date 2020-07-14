@@ -1,6 +1,7 @@
 from os import environ
 
 from connexion import problem
+from flask_cors import CORS
 
 from amtcard_api import connexion_app
 import boto3
@@ -41,3 +42,4 @@ def get_user(card_id):
 
 
 connexion_app.add_api('openapi-spec.yml', validate_responses=True, strict_validation=True)
+CORS(connexion_app.app, origins=r'.*nr-amtgard.com|localhost')
